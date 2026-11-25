@@ -12,6 +12,14 @@ const PROBLEMS = Object.freeze({
         status : 400,
     },
 
+    BAD_REQUEST:  {
+        type: `${BASE_URL}/bad-request`,
+        title: "Bad Request",
+        instance: `${BASE_URL}/occurrences/`,
+        code: "BAD_REQUEST",
+        status : 400,
+    },
+
     UNAUTHORIZED:  {
         type: `${BASE_URL}/unauthorized`,
         title: "Client must authenticate",

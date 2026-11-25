@@ -57,7 +57,12 @@ const VegetableController = {
 
         try {
 
-            const id = res.locals.url?.params?.id ?? res.locals.route?.params?.id;
+            const rawId = res.locals.url?.params?.id ?? res.locals.route?.params?.id;
+            const id = Number(rawId);
+            if (!Number.isInteger(id) || id < 1) {
+                ResponseManager.problem(req, res, PROBLEMS.VALIDATION_FAILED, 'Invalid id parameter.');
+                return false;
+            }
             const vegetable = await VegetableModel.selectById(id);
 
             if (!vegetable) {
@@ -176,7 +181,12 @@ const VegetableController = {
 
     update: async (req, res) => {
 
-        const id = res.locals.url?.params?.id ?? res.locals.route?.params?.id;
+        const rawId = res.locals.url?.params?.id ?? res.locals.route?.params?.id;
+            const id = Number(rawId);
+            if (!Number.isInteger(id) || id < 1) {
+                ResponseManager.problem(req, res, PROBLEMS.VALIDATION_FAILED, 'Invalid id parameter.');
+                return false;
+            }
 
         try {
             await parseMultipart(req, res, UPLOAD_LIMIT, UPLOAD_ALLOWED_TYPES, FOLDERS.TMP);
@@ -274,7 +284,12 @@ const VegetableController = {
     modify: async (req, res) => {
 
         try {
-            const id = res.locals.url?.params?.id ?? res.locals.route?.params?.id;
+            const rawId = res.locals.url?.params?.id ?? res.locals.route?.params?.id;
+            const id = Number(rawId);
+            if (!Number.isInteger(id) || id < 1) {
+                ResponseManager.problem(req, res, PROBLEMS.VALIDATION_FAILED, 'Invalid id parameter.');
+                return false;
+            }
             await parseBody(req, res);
             const data = res.locals.body ?? {};
 
@@ -330,7 +345,12 @@ const VegetableController = {
     destroy: async (req, res) => {
 
         try {
-            const id = res.locals.url?.params?.id ?? res.locals.route?.params?.id;
+            const rawId = res.locals.url?.params?.id ?? res.locals.route?.params?.id;
+            const id = Number(rawId);
+            if (!Number.isInteger(id) || id < 1) {
+                ResponseManager.problem(req, res, PROBLEMS.VALIDATION_FAILED, 'Invalid id parameter.');
+                return false;
+            }
             const success = await VegetableModel.deleteById(id);
 
             if (success) {

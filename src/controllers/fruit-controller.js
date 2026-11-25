@@ -52,7 +52,12 @@ const FruitController = {
 
         try {
 
-            const id = res.locals.url?.params?.id ?? res.locals.route?.params?.id;
+            const rawId = res.locals.url?.params?.id ?? res.locals.route?.params?.id;
+            const id = Number(rawId);
+            if (!Number.isInteger(id) || id < 1) {
+                ResponseManager.problem(req, res, PROBLEMS.VALIDATION_FAILED, 'Invalid id parameter.');
+                return false;
+            }
             const fruit = await FruitModel.selectById(id);
 
             if (!fruit) {
@@ -142,7 +147,12 @@ const FruitController = {
 
         try {
 
-            const id = res.locals.url?.params?.id ?? res.locals.route?.params?.id;
+            const rawId = res.locals.url?.params?.id ?? res.locals.route?.params?.id;
+            const id = Number(rawId);
+            if (!Number.isInteger(id) || id < 1) {
+                ResponseManager.problem(req, res, PROBLEMS.VALIDATION_FAILED, 'Invalid id parameter.');
+                return false;
+            }
             await parseBody(req, res);
             const data = res.locals.body ?? {};
 
@@ -211,7 +221,12 @@ const FruitController = {
 
         try {
 
-            const id = res.locals.url?.params?.id ?? res.locals.route?.params?.id;
+            const rawId = res.locals.url?.params?.id ?? res.locals.route?.params?.id;
+            const id = Number(rawId);
+            if (!Number.isInteger(id) || id < 1) {
+                ResponseManager.problem(req, res, PROBLEMS.VALIDATION_FAILED, 'Invalid id parameter.');
+                return false;
+            }
             await parseBody(req, res);
             const data = res.locals.body ?? {};
 
@@ -272,7 +287,12 @@ const FruitController = {
 
         try {
 
-            const id = res.locals.url?.params?.id ?? res.locals.route?.params?.id;
+            const rawId = res.locals.url?.params?.id ?? res.locals.route?.params?.id;
+            const id = Number(rawId);
+            if (!Number.isInteger(id) || id < 1) {
+                ResponseManager.problem(req, res, PROBLEMS.VALIDATION_FAILED, 'Invalid id parameter.');
+                return false;
+            }
             const success = await FruitModel.deleteById(id);
 
             if (success) {

@@ -8,14 +8,21 @@
     "dev": "node --env-file=.env --watch src/index.js"
   },
   "imports": {
-    "#configurations/*": "./src/configurations/*",
-    "#mvc-controllers/*": "./src/mvc-controllers/*",
-    "#mvc-models/*": "./src/mvc-models/*",
+    "#configs": "./src/configs/index.js",
+    "#configs/*": "./src/configs/*",
+    "#configurations/*": "./src/configs/*",
+    "#controllers/*": "./src/controllers/*",
+    "#models/*": "./src/models/*",
+    "#routes/*": "./src/routes/*",
+    "#views/*": "./src/views/*",
+    "#mvc-controllers/*": "./src/controllers/*",
+    "#mvc-models/*": "./src/models/*",
+    "#mvc-routes/*": "./src/routes/*",
+    "#mvc-views/*": "./src/views/*",
     "#middlewares/*": "./src/middlewares/*",
-    "#mvc-routes/*": "./src/mvc-routes/*",
-    "#mvc-views/*": "./src/mvc-views/*",
     "#services/*": "./src/services/*",
-    "#tools": "./src/tools/index.js"
+    "#utils/*": "./src/utils/*",
+    "#tools": "./src/utils/index.js"
   },
   "dependencies": {    
     "mariadb": "^3.5.3"

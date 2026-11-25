@@ -41,3 +41,5 @@ export const ResponseManager = {
     }, 
 
 };
+
+export default ResponseManager;

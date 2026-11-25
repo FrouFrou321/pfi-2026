@@ -3,11 +3,15 @@
     quels éléments du module sont sélectionnés
     car le module n'a pas de 'export default' 
 */
-import { testRoutes } from "#mvc-routes/test-routes.js";
+import { testRoutes } from "#routes/test-routes.js";
+import { vegetableRoutes } from "#routes/vegetable-routes.js";
+import { fruitRoutes } from "#routes/fruit-routes.js";
 
 // Par simplicité nous rassemblons les groupe de routes en une seule variable
 const routes = [
-    ...testRoutes
+    ...testRoutes,
+    ...vegetableRoutes,
+    ...fruitRoutes
 ];
 
 const matchRoute = (req, res) => {
