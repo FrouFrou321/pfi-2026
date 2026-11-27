@@ -1,6 +1,17 @@
+import os from 'node:os';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const PROJECT_ROOT = fileURLToPath(new URL('../../', import.meta.url));
+
 export const ROLES = Object.freeze({
     ADMIN: 0,
     CLIENT: 1
+});
+
+export const FOLDERS = Object.freeze({
+    TMP: path.join(os.tmpdir(), 'pfi-2026-uploads'),
+    PUBLIC: path.join(PROJECT_ROOT, 'public')
 });
 
 export const VALIDATOR_TYPES = Object.freeze({
