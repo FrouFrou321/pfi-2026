@@ -1,7 +1,15 @@
 import pool from '#services/db.js';
 import { handleDBError } from '#tools';
 
-const ALLOWED_COLUMNS = ['id', 'category', 'nom', 'prix', 'stock', 'origine', 'image'];
+const COLUMNS = {
+    id: 'id',
+    category: 'category',
+    nom: 'name',
+    prix: 'price',
+    stock: 'stock',
+    origine: 'origin',
+    image: 'picture'
+};
 const ALLOWED_DIRECTIONS = ['ASC', 'DESC'];
 
 const VegetableModel = {
@@ -28,8 +36,8 @@ const VegetableModel = {
 
             for (const [key, value] of Object.entries(sortData)) {
                 const direction = String(value).toUpperCase();
-                if (ALLOWED_COLUMNS.includes(key) && ALLOWED_DIRECTIONS.includes(direction)) {
-                    sort.push(`${key} ${direction}`);
+                if (Object.hasOwn(COLUMNS, key) && ALLOWED_DIRECTIONS.includes(direction)) {
+                    sort.push(`${COLUMNS[key]} ${direction}`);
                 }
             }
 
@@ -37,7 +45,7 @@ const VegetableModel = {
                 orderBy = ' ORDER BY ' + sort.join(', ');
             }
 
-            const query = `SELECT id, category, nom, prix, stock, origine, image FROM vegetables` + whereSql + orderBy;
+            const query = `SELECT id, category, name AS nom, price AS prix, stock, origin AS origine, picture AS image FROM vegetable` + whereSql + orderBy;
 
             const rows = await pool.query(query, params);
 
@@ -60,7 +68,7 @@ const VegetableModel = {
             };
 
             const [row] = await pool.query(
-                'SELECT id, category, nom, prix, stock, origine, image FROM vegetables WHERE id = :id',
+                'SELECT id, category, name AS nom, price AS prix, stock, origin AS origine, picture AS image FROM vegetable WHERE id = :id',
                 params
             );
 
@@ -88,7 +96,7 @@ const VegetableModel = {
             };
 
             const result = await pool.query(
-                'INSERT INTO vegetables (category, nom, prix, stock, origine, image) VALUES (:category, :nom, :prix, :stock, :origine, :image)',
+                'INSERT INTO vegetable (category, name, price, stock, origin, picture) VALUES (:category, :nom, :prix, :stock, :origine, :image)',
                 params
             );
 
@@ -117,7 +125,7 @@ const VegetableModel = {
             };
 
             const result = await pool.query(
-                'UPDATE vegetables SET category = :category, nom = :nom, prix = :prix, stock = :stock, origine = :origine, image = :image WHERE id = :id',
+                'UPDATE vegetable SET category = :category, name = :nom, price = :prix, stock = :stock, origin = :origine, picture = :image WHERE id = :id',
                 params
             );
 
@@ -136,7 +144,7 @@ const VegetableModel = {
         try {
 
             const safeEntries = Object.entries(data).filter(([key]) =>
-                ALLOWED_COLUMNS.includes(key) && key !== 'id'
+                Object.hasOwn(COLUMNS, key) && key !== 'id'
             );
 
             if (safeEntries.length === 0) {
@@ -149,10 +157,10 @@ const VegetableModel = {
             };
 
             const fields = safeEntries
-                .map(([key]) => `${key} = :${key}`)
+                .map(([key]) => `${COLUMNS[key]} = :${key}`)
                 .join(', ');
 
-            const query = `UPDATE vegetables SET ${fields} WHERE id = :id`;
+            const query = `UPDATE vegetable SET ${fields} WHERE id = :id`;
 
             const result = await pool.query(query, params);
 
@@ -175,7 +183,7 @@ const VegetableModel = {
             };
 
             const result = await pool.query(
-                'DELETE FROM vegetables WHERE id = :id',
+                'DELETE FROM vegetable WHERE id = :id',
                 params
             );
 

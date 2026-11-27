@@ -3,9 +3,11 @@ import http from 'node:http';
 import setDefaultHeaders from '#middlewares/set-default-headers.js';
 import parseUrl from '#middlewares/parse-url.js';
 import matchRoute from '#middlewares/match-route.js';
+import validateJwt from '#middlewares/validate-jwt.js';
+import validateKey from '#middlewares/validate-key.js';
 import { middlewarePipeline } from '#tools';
 
-const PORT = 3000;
+const PORT = 3010;
 
 const server = http.createServer();
 
@@ -23,7 +25,9 @@ server.on('request', async (req, res) => {
             [
                 setDefaultHeaders,
                 parseUrl,
-                matchRoute
+                matchRoute,
+                validateJwt,
+                validateKey
             ]
         )) return;        
           

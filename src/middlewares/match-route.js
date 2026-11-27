@@ -6,12 +6,14 @@
 import { testRoutes } from "#routes/test-routes.js";
 import { vegetableRoutes } from "#routes/vegetable-routes.js";
 import { fruitRoutes } from "#routes/fruit-routes.js";
+import { authRoutes } from "#routes/auth-routes.js";
 
 // Par simplicité nous rassemblons les groupe de routes en une seule variable
 const routes = [
     ...testRoutes,
     ...vegetableRoutes,
-    ...fruitRoutes
+    ...fruitRoutes,
+    ...authRoutes
 ];
 
 const matchRoute = (req, res) => {

@@ -1,4 +1,4 @@
-import pool from '#infrastructure/db.js';
+import pool from '#services/db.js';
 import { handleDBError } from '#utils/handle-db-errors.js';
 
 const UserModel = {
